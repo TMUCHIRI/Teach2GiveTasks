@@ -3,6 +3,7 @@ interface Commodities {
     itemNumber: number;
     itemNames: string;
     itemPrices: number;
+    imageUrl: string; 
 }
 
 let isUpdating = false;
@@ -61,21 +62,26 @@ async function createOrUpdateCommodity(event: Event): Promise<void> {
     const itemNo = document.querySelector('#no') as HTMLInputElement;
     const itemName = document.querySelector('#text') as HTMLInputElement;
     const itemPrice = document.querySelector('#price') as HTMLInputElement;
+    const imageUrl = document.querySelector('#imageUrl') as HTMLInputElement; 
     const form = document.querySelector('.form') as HTMLFormElement
 
-    if (!itemNo.value || !itemName.value || !itemPrice.value) {
+    if (!itemNo.value || !itemName.value || !itemPrice.value || !imageUrl.value) {
         console.log("Fill all fields");
         const error = document.createElement('p');
         error.className = 'error';
         error.textContent = 'Please fill in all fields';
         form.appendChild(error);
+        setTimeout(() => {
+            form.removeChild(error);
+        }, 3000);
         return;
     }
 
     const newCommodity: Commodities = {
         itemNumber: parseInt(itemNo.value, 10),
         itemNames: itemName.value,
-        itemPrices: parseFloat(itemPrice.value)
+        itemPrices: parseFloat(itemPrice.value),
+        imageUrl: imageUrl.value // Include imageUrl
     }
 
     try {
@@ -96,15 +102,17 @@ async function createOrUpdateCommodity(event: Event): Promise<void> {
     itemNo.value = '';
     itemName.value = '';
     itemPrice.value = '';
+    imageUrl.value = ''; 
 }
 
 function displayCommodity(items: Commodities[]): void {
     const itemsContainer = document.querySelector('.items') as HTMLDivElement;
-    itemsContainer.innerHTML = ''; // Clear existing items
+    itemsContainer.innerHTML = ''; 
     items.forEach(item => {
         const itemCont = document.createElement('div');
         itemCont.className = 'itemCont';
         itemCont.innerHTML = `
+            <img src="${item.imageUrl}" alt="${item.itemNames}" />
             <p>Item Number: ${item.itemNumber}</p>
             <p>Item Name: ${item.itemNames}</p>
             <p>Item Price: ${item.itemPrices}</p>
@@ -137,16 +145,54 @@ function displayCommodity(items: Commodities[]): void {
                 const itemNo = document.querySelector('#no') as HTMLInputElement;
                 const itemName = document.querySelector('#text') as HTMLInputElement;
                 const itemPrice = document.querySelector('#price') as HTMLInputElement;
+                const imageUrl = document.querySelector('#imageUrl') as HTMLInputElement; 
 
                 itemNo.value = item.itemNumber.toString();
                 itemName.value = item.itemNames;
                 itemPrice.value = item.itemPrices.toString();
+                imageUrl.value = item.imageUrl; 
 
                 document.querySelector('#create')!.textContent = 'Update Item';
                 isUpdating = true;
                 currentCommodityId = id;
             }
         });
+    });
+}
+
+async function searchCommodity(name: string): Promise<Commodities[]> {
+    const response = await fetch('http://localhost:3000/commodities');
+    if (!response.ok) {
+        throw new Error('Error fetching commodities');
+    }
+    const commodities = await response.json();
+    return commodities.filter((commodity: Commodities) =>
+        commodity.itemNames.toLowerCase().includes(name.toLowerCase())
+    );
+}
+
+function createSearchForm() {
+    const searchForm = document.createElement('div');
+    searchForm.className = 'searchForm';
+    while(searchForm.firstChild) {
+        searchForm.removeChild(searchForm.firstChild);
+    }
+    searchForm.innerHTML = `
+        <input type="text" id="searchText" placeholder="Search Commodity Name">
+        <button id="searchSubmit">Search</button>
+    `;
+    document.querySelector('.top')!.appendChild(searchForm);
+
+    document.querySelector('#searchSubmit')!.addEventListener('click', async () => {
+        const searchText = (document.querySelector('#searchText') as HTMLInputElement).value;
+        if (searchText) {
+            try {
+                const items = await searchCommodity(searchText);
+                displayCommodity(items);
+            } catch (error) {
+                console.error('Error searching commodities:', error);
+            }
+        }
     });
 }
 
@@ -163,5 +209,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         } catch (error) {
             console.error('Error fetching commodities:', error);
         }
+    });
+
+    const searchButton = document.querySelector('#search') as HTMLButtonElement;
+    searchButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        createSearchForm();
     });
 });

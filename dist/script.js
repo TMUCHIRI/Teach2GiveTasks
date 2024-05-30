@@ -67,19 +67,24 @@ function createOrUpdateCommodity(event) {
         const itemNo = document.querySelector('#no');
         const itemName = document.querySelector('#text');
         const itemPrice = document.querySelector('#price');
+        const imageUrl = document.querySelector('#imageUrl');
         const form = document.querySelector('.form');
-        if (!itemNo.value || !itemName.value || !itemPrice.value) {
+        if (!itemNo.value || !itemName.value || !itemPrice.value || !imageUrl.value) {
             console.log("Fill all fields");
             const error = document.createElement('p');
             error.className = 'error';
             error.textContent = 'Please fill in all fields';
             form.appendChild(error);
+            setTimeout(() => {
+                form.removeChild(error);
+            }, 3000);
             return;
         }
         const newCommodity = {
             itemNumber: parseInt(itemNo.value, 10),
             itemNames: itemName.value,
-            itemPrices: parseFloat(itemPrice.value)
+            itemPrices: parseFloat(itemPrice.value),
+            imageUrl: imageUrl.value // Include imageUrl
         };
         try {
             if (isUpdating && currentCommodityId !== null) {
@@ -100,15 +105,17 @@ function createOrUpdateCommodity(event) {
         itemNo.value = '';
         itemName.value = '';
         itemPrice.value = '';
+        imageUrl.value = '';
     });
 }
 function displayCommodity(items) {
     const itemsContainer = document.querySelector('.items');
-    itemsContainer.innerHTML = ''; // Clear existing items
+    itemsContainer.innerHTML = '';
     items.forEach(item => {
         const itemCont = document.createElement('div');
         itemCont.className = 'itemCont';
         itemCont.innerHTML = `
+            <img src="${item.imageUrl}" alt="${item.itemNames}" />
             <p>Item Number: ${item.itemNumber}</p>
             <p>Item Name: ${item.itemNames}</p>
             <p>Item Price: ${item.itemPrices}</p>
@@ -140,15 +147,51 @@ function displayCommodity(items) {
                 const itemNo = document.querySelector('#no');
                 const itemName = document.querySelector('#text');
                 const itemPrice = document.querySelector('#price');
+                const imageUrl = document.querySelector('#imageUrl');
                 itemNo.value = item.itemNumber.toString();
                 itemName.value = item.itemNames;
                 itemPrice.value = item.itemPrices.toString();
+                imageUrl.value = item.imageUrl;
                 document.querySelector('#create').textContent = 'Update Item';
                 isUpdating = true;
                 currentCommodityId = id;
             }
         });
     });
+}
+function searchCommodity(name) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const response = yield fetch('http://localhost:3000/commodities');
+        if (!response.ok) {
+            throw new Error('Error fetching commodities');
+        }
+        const commodities = yield response.json();
+        return commodities.filter((commodity) => commodity.itemNames.toLowerCase().includes(name.toLowerCase()));
+    });
+}
+function createSearchForm() {
+    const searchForm = document.createElement('div');
+    searchForm.className = 'searchForm';
+    while (searchForm.firstChild) {
+        searchForm.removeChild(searchForm.firstChild);
+    }
+    searchForm.innerHTML = `
+        <input type="text" id="searchText" placeholder="Search Commodity Name">
+        <button id="searchSubmit">Search</button>
+    `;
+    document.querySelector('.top').appendChild(searchForm);
+    document.querySelector('#searchSubmit').addEventListener('click', () => __awaiter(this, void 0, void 0, function* () {
+        const searchText = document.querySelector('#searchText').value;
+        if (searchText) {
+            try {
+                const items = yield searchCommodity(searchText);
+                displayCommodity(items);
+            }
+            catch (error) {
+                console.error('Error searching commodities:', error);
+            }
+        }
+    }));
 }
 document.addEventListener('DOMContentLoaded', () => __awaiter(void 0, void 0, void 0, function* () {
     const createItemButton = document.querySelector('#create');
@@ -164,4 +207,9 @@ document.addEventListener('DOMContentLoaded', () => __awaiter(void 0, void 0, vo
             console.error('Error fetching commodities:', error);
         }
     }));
+    const searchButton = document.querySelector('#search');
+    searchButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        createSearchForm();
+    });
 }));

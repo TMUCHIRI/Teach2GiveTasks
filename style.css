@@ -59,14 +59,13 @@ body{
     font-style: normal;
 }
 .brand button{
-    display: none;
     margin-left: 50%;
     height: 40px;
-    width: 10%;
+    width: 5%;
     border: none;
-    border-radius: 5px;
+    border-radius: 50px 50px 50px 50px;
     color: white;
-    background: rgb(73, 73, 73);
+    background: none;
     transition: all 0.5s ease;  
 }
 
@@ -178,6 +177,11 @@ body{
     font-style: normal;
     background: rgb(149, 201, 198);
     box-shadow: 3px 3px 5px rgb(104, 104, 104);
+    transition: all 0.7s ease-in;
+}
+.items .itemCont:hover{
+    transform: translateX(5%);
+
 }
 
 .items .itemCont button{
@@ -205,6 +209,64 @@ body{
     box-shadow: 3px 3px 5px rgb(104, 104, 104);
     cursor: pointer;
 }
+
+.itemCont img{
+    border-radius: 5px;
+}
+
+.error{
+    width: 30%;
+    font-weight: 700;
+    color: rgb(250, 72, 72);
+    font-family: "Josefin Sans", sans-serif;
+    background: white;
+    padding: 5px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    /* box-shadow: 3px 3px 3px rgb(156, 156, 156); */
+}
+
+.searchForm{
+    display: flex;
+    gap: 5px;
+}
+.searchForm button{
+    height: 40px;
+    width: 50%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background: rgb(73, 73, 73);
+    transition: all 0.5s ease;
+}
+
+.searchForm button:hover{
+    background: rgb(149, 201, 198);
+    color: white;
+    font-weight: 600;
+    transform: translateX(5%);
+    box-shadow: 3px 3px 5px rgb(104, 104, 104);
+}
+
+.searchForm input{
+    /* width: 80%; */
+    height: 40%;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-weight: 500;
+    background: black;
+    padding: 10px;
+    transition: all 0.5s ease;
+}
+
+.searchForm input:hover{
+    background: rgb(51, 51, 51);
+    box-shadow: 3px 3px 5px rgb(104, 104, 104);
+}
+
 
 /* Media Queries */
 @media (max-width: 1200px) {

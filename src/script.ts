@@ -81,7 +81,7 @@ async function createOrUpdateCommodity(event: Event): Promise<void> {
         itemNumber: parseInt(itemNo.value, 10),
         itemNames: itemName.value,
         itemPrices: parseFloat(itemPrice.value),
-        imageUrl: imageUrl.value // Include imageUrl
+        imageUrl: imageUrl.value 
     }
 
     try {

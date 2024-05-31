@@ -98,7 +98,7 @@ async function createOrUpdateCommodity(event: Event): Promise<void> {
                 console.log('Item number already used');
                 const error = document.createElement('p');
                 error.className = 'error';
-                error.textContent = 'Item number already used';
+                error.textContent = `Item number already used`;
                 form.appendChild(error);
                 setTimeout(() => {
                     form.removeChild(error);

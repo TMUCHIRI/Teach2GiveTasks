@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/landing.css">
+    <title>Landing Page</title>
+</head>
+<body>
+    <div class="landing-page">
+        <h1>Welcome to MORTEAVATION <ion-icon name="fast-food-outline"></ion-icon></h1>
+        <button id="userPageButton">Go to User Page</button>
+        <button id="adminPageButton">Go to Admin Page</button>
+    </div>
+
+    <script>
+        document.getElementById('userPageButton').addEventListener('click', () => {
+            window.location.href = 'userpage.html';
+        });
+
+        document.getElementById('adminPageButton').addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
+    </script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

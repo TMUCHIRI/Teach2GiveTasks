@@ -1,0 +1,45 @@
+.landing-page {
+    height: 100vh;
+    width: 99vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: url(/pictures/back.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 5px;
+}
+
+.landing-page h1 {
+    font-family: "Caveat", cursive;
+    font-size: 50px;
+    color: black;
+    margin-bottom: 30px;
+}
+
+.landing-page button {
+    width: 15%;
+    height: 8%;
+    border: none;
+    border-radius: 5px;
+    background: rgb(73, 73, 73);
+    color: white;
+    font-size: 18px;
+    margin: 10px;
+    transition: all 0.5s ease;
+}
+
+.landing-page button:hover {
+    background: rgb(149, 201, 198);
+    color: black;
+    font-weight: 600;
+    box-shadow: 3px 3px 5px rgb(104, 104, 104);
+    transform: translateY(5%);
+}
+
+body{
+    overflow-x: hidden;
+    overflow-y: hidden;
+}

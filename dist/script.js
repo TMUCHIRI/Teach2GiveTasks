@@ -87,6 +87,7 @@ function createOrUpdateCommodity(event) {
             imageUrl: imageUrl.value
         };
         try {
+            const items = yield fetchCommodity();
             if (isUpdating && currentCommodityId !== null) {
                 yield updateCommodity(currentCommodityId, newCommodity);
                 isUpdating = false;
@@ -94,10 +95,22 @@ function createOrUpdateCommodity(event) {
                 document.querySelector('#create').textContent = 'Create Item';
             }
             else {
+                const existingCommodity = items.find(item => item.itemNumber === newCommodity.itemNumber);
+                if (existingCommodity) {
+                    console.log('Item number already used');
+                    const error = document.createElement('p');
+                    error.className = 'error';
+                    error.textContent = `Item number already used`;
+                    form.appendChild(error);
+                    setTimeout(() => {
+                        form.removeChild(error);
+                    }, 3000);
+                    return;
+                }
                 yield saveCommodity(newCommodity);
             }
-            const items = yield fetchCommodity();
-            displayCommodity(items);
+            const updatedItems = yield fetchCommodity();
+            displayCommodity(updatedItems);
         }
         catch (error) {
             console.error('Error saving commodity:', error);
@@ -115,10 +128,10 @@ function displayCommodity(items) {
         const itemCont = document.createElement('div');
         itemCont.className = 'itemCont';
         itemCont.innerHTML = `
-            <img src="${item.imageUrl}" alt="${item.itemNames}" />
             <p>Item Number: ${item.itemNumber}</p>
             <p>Item Name: ${item.itemNames}</p>
             <p>Item Price: ${item.itemPrices}</p>
+            <img src="${item.imageUrl}" alt="${item.itemNames}" /> <!-- Display image -->
             <button class="updateBtn" data-id="${item.id}">Update</button>
             <button class="deleteBtn" data-id="${item.id}">Delete</button>
         `;

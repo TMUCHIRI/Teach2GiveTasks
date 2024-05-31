@@ -85,16 +85,31 @@ async function createOrUpdateCommodity(event: Event): Promise<void> {
     }
 
     try {
+        const items = await fetchCommodity();
+
         if (isUpdating && currentCommodityId !== null) {
             await updateCommodity(currentCommodityId, newCommodity);
             isUpdating = false;
             currentCommodityId = null;
             document.querySelector('#create')!.textContent = 'Create Item';
         } else {
+            const existingCommodity = items.find(item => item.itemNumber === newCommodity.itemNumber);
+            if (existingCommodity) {
+                console.log('Item number already used');
+                const error = document.createElement('p');
+                error.className = 'error';
+                error.textContent = 'Item number already used';
+                form.appendChild(error);
+                setTimeout(() => {
+                    form.removeChild(error);
+                }, 3000);
+                return;
+            }
             await saveCommodity(newCommodity);
         }
-        const items = await fetchCommodity();
-        displayCommodity(items);
+
+        const updatedItems = await fetchCommodity();
+        displayCommodity(updatedItems);
     } catch (error) {
         console.error('Error saving commodity:', error);
     }
@@ -112,10 +127,10 @@ function displayCommodity(items: Commodities[]): void {
         const itemCont = document.createElement('div');
         itemCont.className = 'itemCont';
         itemCont.innerHTML = `
-            <img src="${item.imageUrl}" alt="${item.itemNames}" />
             <p>Item Number: ${item.itemNumber}</p>
             <p>Item Name: ${item.itemNames}</p>
             <p>Item Price: ${item.itemPrices}</p>
+            <img src="${item.imageUrl}" alt="${item.itemNames}" /> <!-- Display image -->
             <button class="updateBtn" data-id="${item.id}">Update</button>
             <button class="deleteBtn" data-id="${item.id}">Delete</button>
         `;

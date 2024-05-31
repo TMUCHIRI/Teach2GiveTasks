@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         checkout.className = 'checkout';
         checkout.innerHTML = `Checked Out Successfully`;
         top.appendChild(checkout);
-        setTimeout(()=>{top.removeChild(checkout);},2000)
+        setTimeout(()=>{top.removeChild(checkout);},3000)
         setTimeout(() => {
             window.location.href = 'userpage.html';
         }, 3000);

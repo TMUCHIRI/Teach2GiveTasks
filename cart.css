@@ -118,6 +118,9 @@
     cursor: pointer;
 }
 
+.bottom .cart-items .itemCont img{
+    border-radius: 5px;
+}
 .top .checkout{
     width: 100%;
     display: flex;

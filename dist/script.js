@@ -183,16 +183,17 @@ function searchCommodity(name) {
     });
 }
 function createSearchForm() {
+    const top = document.querySelector('.top');
+    const forms = document.querySelectorAll(".searchForm");
+    forms.forEach((form) => {
+        top === null || top === void 0 ? void 0 : top.removeChild(form);
+    });
     const searchForm = document.createElement('div');
     searchForm.className = 'searchForm';
-    while (searchForm.firstChild) {
-        searchForm.removeChild(searchForm.firstChild);
-    }
     searchForm.innerHTML = `
         <input type="text" id="searchText" placeholder="Search Commodity Name">
-        <button id="searchSubmit">Search</button>
-    `;
-    document.querySelector('.top').appendChild(searchForm);
+        <button id="searchSubmit">Search</button>`;
+    top.appendChild(searchForm);
     document.querySelector('#searchSubmit').addEventListener('click', () => __awaiter(this, void 0, void 0, function* () {
         const searchText = document.querySelector('#searchText').value;
         if (searchText) {
@@ -220,6 +221,10 @@ document.addEventListener('DOMContentLoaded', () => __awaiter(void 0, void 0, vo
             console.error('Error fetching commodities:', error);
         }
     }));
+    const homeButton = document.querySelector('#home');
+    homeButton.addEventListener('click', () => {
+        window.location.href = 'landing.html';
+    });
     const searchButton = document.querySelector('#search');
     searchButton.addEventListener('click', (event) => {
         event.preventDefault();

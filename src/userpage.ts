@@ -66,11 +66,14 @@ async function searchItem(name: string): Promise<Commodity[]> {
 }
 
 function createsearchForm() {
+    const description = document.querySelector('.description');
+    const forms = document.querySelectorAll('.searchForm');
+    forms.forEach((form) => {
+        description?.removeChild(form);
+})
     const searchForm = document.createElement('div');
     searchForm.className = 'searchForm';
-    while(searchForm.firstChild) {
-        searchForm.removeChild(searchForm.firstChild);
-    }
+    
     searchForm.innerHTML = `
         <input type="text" id="searchText" placeholder="Search Commodity Name">
         <button id="searchSubmit">Search</button>
@@ -109,4 +112,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
         console.error('Error fetching commodities:', error);
     }
+
+    const homeButton = document.querySelector('#home') as HTMLButtonElement;
+    homeButton.addEventListener('click', () =>{
+        window.location.href = 'landing.html';
+    })
 });

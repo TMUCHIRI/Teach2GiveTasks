@@ -46,7 +46,7 @@ body{
     font-size: 40px;
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 15px;
     align-items: center;
     padding: 10px;
 }
@@ -81,12 +81,17 @@ body{
     transition: all 0.5s ease;  
 }
 
+.brand #home{
+    margin-right: auto;
+}
+
 .brand button:hover{
     background: rgb(149, 201, 198);
     color: white;
     font-weight: 600;
     transform: translateX(5%);
     box-shadow: 3px 3px 5px rgb(104, 104, 104);
+    cursor: pointer;
 }
 
 .bottom{

@@ -64,11 +64,13 @@ function searchItem(name) {
     });
 }
 function createsearchForm() {
+    const description = document.querySelector('.description');
+    const forms = document.querySelectorAll('.searchForm');
+    forms.forEach((form) => {
+        description === null || description === void 0 ? void 0 : description.removeChild(form);
+    });
     const searchForm = document.createElement('div');
     searchForm.className = 'searchForm';
-    while (searchForm.firstChild) {
-        searchForm.removeChild(searchForm.firstChild);
-    }
     searchForm.innerHTML = `
         <input type="text" id="searchText" placeholder="Search Commodity Name">
         <button id="searchSubmit">Search</button>
@@ -105,4 +107,8 @@ document.addEventListener('DOMContentLoaded', () => __awaiter(void 0, void 0, vo
     catch (error) {
         console.error('Error fetching commodities:', error);
     }
+    const homeButton = document.querySelector('#home');
+    homeButton.addEventListener('click', () => {
+        window.location.href = 'landing.html';
+    });
 }));

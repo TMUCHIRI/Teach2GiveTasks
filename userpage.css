@@ -1,13 +1,14 @@
-*{
+
+* {
     margin: 0;
     padding: 0;
 }
 
-body{
+body {
     overflow-x: hidden;
 }
 
-.main{
+.main {
     height: fit-content;
     width: 100vw;
     display: flex;
@@ -15,7 +16,7 @@ body{
     justify-content: center;
 }
 
-.container{
+.container {
     height: 90%;
     width: 90%;
     display: flex;
@@ -26,7 +27,7 @@ body{
     background-size: cover;
 }
 
-.top{
+.top {
     height: 20%;
     width: 100%;
     display: flex;
@@ -40,7 +41,7 @@ body{
     padding: 20px;
 }
 
-.brand{
+.brand {
     width: 80%;
     height: 70%;
     font-size: 40px;
@@ -51,13 +52,13 @@ body{
     padding: 10px;
 }
 
-.brand h3{
+.brand h3 {
     font-family: "Caveat", cursive;
     font-weight: 700;
     font-style: normal;
 }
 
-.brand input{
+.brand input {
     width: 30%;
     height: 40%;
     border-radius: 5px;
@@ -66,12 +67,13 @@ body{
     font-size: 16px;
     transition: all 0.5s ease;
 }
-.brand input:hover{
+
+.brand input:hover {
     background: rgb(51, 51, 51);
     box-shadow: 3px 3px 5px rgb(104, 104, 104);
 }
 
-.brand button{
+.brand button {
     margin-left: auto;
     height: 40px;
     width: 40px;
@@ -81,11 +83,11 @@ body{
     transition: all 0.5s ease;  
 }
 
-.brand #home{
+.brand #home {
     margin-right: auto;
 }
 
-.brand button:hover{
+.brand button:hover {
     background: rgb(149, 201, 198);
     color: white;
     font-weight: 600;
@@ -94,7 +96,7 @@ body{
     cursor: pointer;
 }
 
-.bottom{
+.bottom {
     height: 80%;
     width: 100%;
     display: flex;
@@ -106,7 +108,7 @@ body{
     background: rgb(149, 201, 198);
 }
 
-.description{
+.description {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 25px;
     font-weight: 600;
@@ -117,12 +119,13 @@ body{
     gap: 10px;
 }
 
-.description .searchForm{
+.description .searchForm {
     display: flex;
     flex-direction: row;
     gap: 5px;
 }
-.description .searchForm input{
+
+.description .searchForm input {
     height: 40%;
     border-radius: 5px;
     border: none;
@@ -131,11 +134,13 @@ body{
     background: black;
     padding: 10px;
 }
-.description .searchForm input:hover{
+
+.description .searchForm input:hover {
     background: rgb(51, 51, 51);
     box-shadow: 3px 3px 5px rgb(104, 104, 104);
 }
-.description .searchForm button{
+
+.description .searchForm button {
     height: 40%;
     width: 50%;
     padding: 10px;
@@ -146,18 +151,22 @@ body{
     transition: all 0.5s ease;
 }
 
-.description .searchForm button:hover{
+.description .searchForm button:hover {
     background: rgb(149, 201, 198);
     color: black;
     font-weight: 600;
     transform: translateX(5%);
     box-shadow: 3px 3px 5px rgb(104, 104, 104);
+    cursor: pointer;
 }
-.items{
+
+.items {
     display: flex;
     flex-wrap: wrap;
-    width: 70%;
+    width: fit-content;
     height: fit-content;
+    justify-content: center;
+    align-items: center;
     gap: 40px;
     padding: 20px;
     border-radius: 5px;
@@ -165,7 +174,7 @@ body{
     box-shadow: 3px 3px 5px rgb(104, 104, 104);
 }
 
-.items .itemCont{
+.items .itemCont {
     width: fit-content;
     height: fit-content;
     display: flex;
@@ -181,11 +190,11 @@ body{
     transition: all 0.7s ease-in;
 }
 
-.items .itemCont:hover{
+/* .items .itemCont:hover {
     transform: translateX(5%);
-}
+} */
 
-.items .itemCont button{
+.items .itemCont button {
     width: 60%;
     height: 20%;
     border: none;
@@ -196,7 +205,7 @@ body{
     transition: all 0.5s ease;
 }
 
-.items .itemCont .addToCartBtn:hover{
+.items .itemCont .addToCartBtn:hover {
     background: rgb(248, 155, 15);
     font-weight: 600;
     transform: translateY(5%);
@@ -204,11 +213,11 @@ body{
     cursor: pointer;
 }
 
-.itemCont img{
+.itemCont img {
     border-radius: 5px;
 }
 
-.success{
+.success {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -224,6 +233,7 @@ body{
 @media (max-width: 1200px) {
     .brand {
         flex-direction: column;
+        align-items: center;
         font-size: 30px;
     }
 
@@ -235,6 +245,35 @@ body{
         margin-left: 0;
         width: 50px;
     }
+
+    .bottom {
+        gap: 20px;
+        padding: 15px;
+    }
+
+    .description {
+        font-size: 22px;
+    }
+
+    .description .searchForm input {
+        height: 35%;
+        padding: 8px;
+    }
+
+    .description .searchForm button {
+        height: 35%;
+        padding: 8px;
+        width: 45%;
+    }
+
+    .items {
+        gap: 30px;
+        padding: 15px;
+    }
+
+    .items .itemCont {
+        padding: 15px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -242,17 +281,95 @@ body{
         font-size: 25px;
     }
 
+    .brand #home {
+        margin-right: 0;
+    }
+
+
     .brand input {
         width: 80%;
+    }
+
+    .brand button {
+        width: 40px;
+        height: 40px;
+    }
+
+    .bottom {
+        gap: 15px;
+        padding: 10px;
+    }
+
+    .description {
+        font-size: 20px;
+    }
+
+    .description .searchForm input {
+        height: 30%;
+        padding: 6px;
+    }
+
+    .description .searchForm button {
+        height: 30%;
+        padding: 6px;
+        width: 40%;
+    }
+
+    .items {
+        gap: 20px;
+        padding: 10px;
+    }
+
+    .items .itemCont {
+        padding: 10px;
     }
 }
 
 @media (max-width: 480px) {
     .brand {
         font-size: 20px;
+        justify-content: center;
     }
 
     .brand input {
         width: 90%;
+    }
+
+    .brand button {
+        width: 35px;
+        height: 35px;
+    }
+
+    .brand #home {
+        margin-right: 0;
+    }
+
+    .bottom {
+        gap: 10px;
+        padding: 5px;
+    }
+
+    .description {
+        font-size: 18px;
+    }
+
+    .description .searchForm input {
+        height: 25%;
+        padding: 5px;
+    }
+
+    .description .searchForm button {
+        height: 25%;
+        padding: 5px;
+        width: 35%;
+    }
+
+    .items {
+        gap: 15px;
+        padding: 5px;
+    }
+
+    .items .itemCont {
+        padding: 5px;
     }
 }

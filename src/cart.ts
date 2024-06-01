@@ -44,17 +44,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const checkoutButton = document.querySelector('#checkout') as HTMLButtonElement;
     checkoutButton.addEventListener('click', () => {
-        localStorage.removeItem('cart');
-        const top= document.querySelector('.top') as HTMLDivElement;
-        const checkout = document.createElement('div');
-        checkout.className = 'checkout';
-        checkout.innerHTML = `Checked Out Successfully`;
-        top.appendChild(checkout);
-        setTimeout(()=>{top.removeChild(checkout);},3000)
-        setTimeout(() => {
-            window.location.href = 'userpage.html';
-        }, 3000);
-        // alert('Checked out successfully!');
-        // window.location.href = 'userpage.html';
+        if (items.length === 0) {
+            const top = document.querySelector('.top') as HTMLDivElement;
+            const checkout = document.createElement('div');
+            checkout.className = 'checkout1';
+            checkout.innerHTML = `Add an Item To Checkout`;
+            top.appendChild(checkout);
+            setTimeout(() => {
+                top.removeChild(checkout);
+            }, 3000);
+        } else {
+            localStorage.removeItem('cart');
+            const top = document.querySelector('.top') as HTMLDivElement;
+            const checkout = document.createElement('div');
+            checkout.className = 'checkout';
+            checkout.innerHTML = `Check Out Successful`;
+            top.appendChild(checkout);
+            setTimeout(() => {
+                top.removeChild(checkout);
+            }, 3000);
+            const totalPrice = items.reduce((total, item) => total + item.itemPrices, 0);
+            localStorage.setItem('totalPrice', totalPrice.toFixed(2));
+            localStorage.removeItem('cart');
+            setTimeout(() => {
+                window.location.href = 'checkout.html';
+            }, 3000);
+        }
+    });
+
+    const userPage = document.querySelector('#back') as HTMLElement;
+    userPage.addEventListener('click', () => {
+        window.location.href = 'userpage.html';
     });
 });

@@ -163,13 +163,56 @@ body{
 .bottom .items{
     display: flex;
     flex-wrap: wrap;
-    width: 70%;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
     height: fit-content;
     gap: 40px;
     padding: 20px;
     border-radius: 5px;
     background: rgb(248, 155, 15);
     box-shadow: 3px 3px 5px rgb(104, 104, 104);
+}
+
+.bottom #back-to-home{
+    width: 5%;
+    height: 40px;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background: rgb(73, 73, 73);
+    color: white;
+    transition: all 0.5s ease;
+}
+
+.bottom #back-to-home:hover{
+    background: rgb(248, 155, 15);
+    color: black;
+    font-weight: 600;
+    transform: translateY(5%);
+    box-shadow: 3px 3px 5px rgb(104, 104, 104);
+    cursor: pointer;
+}
+
+.toolTip{
+    position: relative;
+    display: inline-block;
+}
+.toolTipText{
+    visibility: hidden;
+    color: black;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+    height: fit-content;
+    width: fit-content;
+    position: absolute;
+    z-index: 1;
+    display: flex;
+}
+
+.toolTip:hover .toolTipText{
+    visibility: visible;
 }
 
 .items .itemCont{
@@ -188,10 +231,10 @@ body{
     box-shadow: 3px 3px 5px rgb(104, 104, 104);
     transition: all 0.7s ease-in;
 }
-.items .itemCont:hover{
+/* .items .itemCont:hover{
     transform: translateX(5%);
 
-}
+} */
 
 .items .itemCont button{
     width: 60%;
